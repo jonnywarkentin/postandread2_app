@@ -6,3 +6,17 @@
   </div>
   <% end %>
 </div>
+
+<div class="user-post">
+  <h2>Feed</h2>
+
+  <% if @user.microposts.empty? %>
+  <p class="none">No posts yet.</p>
+  <% else %>
+  <% @user.microposts.each do |post| %>
+  <div class="post">
+    <%= render :partial => "microposts/post_body", :locals => {:post => post} %>
+  </div>
+  <% end %>
+  <% end %>
+</div>
