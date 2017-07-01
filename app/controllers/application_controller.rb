@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  before_filter :require_login
+
   protect_from_forgery with: :exception
 
   helper_method :current_user, :current_user_session
@@ -11,5 +13,19 @@ class ApplicationController < ActionController::Base
   def current_user
     return @current_user if @current_user
     @current_user = current_user_session && current_user_session.record
+  end
+
+  def require_login
+    unless current_user
+      flash[:error] = "Please login first."
+      redirect_to login_url
+    end
+  end
+
+  def require_not_login
+    if current_user
+      flash[:error] = "You're already logged in."
+      redirect_to request.env["HTTP_REFERER"] || root_url
+    end
   end
 end

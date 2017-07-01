@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_filter :require_login, :only => [:new, :create]
+  before_filter :require_not_login, :only => [:new, :create]
   def index
     @users = User.all
   end
@@ -24,10 +26,21 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    if @user.update_attributes(user_params)
+      flash[:notice] = "Profile was updated."
+      redirect_to user_url(@user)
+    else
+      redirect_to edit_user_url
+    end
   end
 
   private
   def user_params
-    params.require(:user).permit(:content)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end
