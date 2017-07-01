@@ -1,0 +1,5 @@
+<h1>All Users</h1>
+<!-- Use each block to create link of user name-->
+<% @users.each do |user| %>
+<div class="user"><%= link_to user.name, user_url(user.id) %></div>
+<% end %>

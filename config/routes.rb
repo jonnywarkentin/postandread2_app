@@ -1,0 +1,14 @@
+Rails.application.routes.draw do
+
+  root :to => "users#index"
+
+  resources :users, :except => [:destroy]
+  resources :microposts, :only => [:index, :create, :destroy]
+  resources :relationships, :only => [:create, :destroy]
+  resources :user_sessions, :only => [:new, :create, :destroy]
+
+  match "login" => "user_sessions#new", via: [:get, :post]
+  match "logout" => "user_sessions#destroy", via: [:get, :post]
+
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+end
