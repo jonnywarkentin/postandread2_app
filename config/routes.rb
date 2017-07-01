@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :relationships, :only => [:create, :destroy]
   resources :user_sessions, :only => [:new, :create, :destroy]
 
+  #match "users" => "users#index", via: [:get, :post]
+
   match "login" => "user_sessions#new", via: [:get, :post]
   match "logout" => "user_sessions#destroy", via: [:get, :post]
   match "edit_profile" => "users#edit", via: [:get, :post]
