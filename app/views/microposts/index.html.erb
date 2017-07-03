@@ -1,16 +1,17 @@
 <div class="user-information">
-  <span class="user-name"><%= current_user.name %></span>
-
+  <span class="user-name"><% if current_user %><%= current_user.name %></span>
   <%= form_for @micropost do |f| %>
   <%= render :partial => "shared/form_error_messages", :locals => {:model_object => @micropost} %>
   <%= f.text_area :content, :placeholder => "What's on your mind?" %>
   <%= f.submit "Post" %>
+  <% end %>
   <% end %>
 </div>
 
 <div class="user-post">
   <h2>Feed</h2>
 
+  <% if current_user %>
   <% if current_user.feed.empty? %>
   <p class="none">No posts yet.</p>
   <% else %>
@@ -21,6 +22,7 @@
     </p>
     <%= render :partial => "post_body", :locals => {:post => post} %>
   </div>
+  <% end %>
   <% end %>
   <% end %>
 </div>

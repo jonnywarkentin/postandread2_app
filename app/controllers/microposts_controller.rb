@@ -3,6 +3,7 @@ skip_before_filter :require_login, :only => [:index]
 
   def index
     @micropost = Micropost.new
+    @posts = Micropost.all
   end
 
   def create
@@ -14,6 +15,12 @@ skip_before_filter :require_login, :only => [:index]
     else
       redirect_to microposts_url
     end
+  end
+
+  def destroy
+    @micropost.find(micropost_params)
+    @micropost.destroy
+    redirect_to root_url
   end
 
   private
