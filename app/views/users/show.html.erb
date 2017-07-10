@@ -4,6 +4,22 @@
   <div class="edit-profile-button">
     <%= link_to "Edit profile", edit_user_url %>
   </div>
+  <% else %>
+    <% if current_user.following?(@user) %>
+      <div class="unfollow-button">
+        <%= form_for current_user.relationships.find_by_following_id(@user), :html => {:method => :delete} do |f| %>
+        <%= f.hidden_field :following_id %>
+        <%= f.submit "Unfollow" %>
+        <% end %>
+      </div>
+      <% else %>
+        <div class="follow-button">
+          <%= form_for @relationship do |f| %>
+          <%- f.hidden_field :following_id, :value => @user.id %>
+          <%= f.submit "Follow" %>
+          <% end %>
+        </div>
+      <% end %>
   <% end %>
 </div>
 

@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 #action show get id from post request then find user to show on views
   def show
     @user = User.find(params[:id])
+    @relationship = Relationship.new
   end
 
   def new
@@ -37,6 +38,16 @@ class UsersController < ApplicationController
     else
       redirect_to edit_user_url
     end
+  end
+
+  def follower
+    @user = User.find(params[:id])
+    @followers = @user.follower_users
+  end
+
+  def following
+    @user = User.find(params[:id])
+    @followings = @user.following_users
   end
 
   private

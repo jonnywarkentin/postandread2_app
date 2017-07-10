@@ -60,3 +60,5 @@ end
 group :test do
   gem 'shoulda-matchers', '1.2.0'
 end
+
+gem 'coffee-script-source', '1.8.0'

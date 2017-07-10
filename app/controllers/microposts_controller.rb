@@ -18,9 +18,9 @@ skip_before_filter :require_login, :only => [:index]
   end
 
   def destroy
-    @micropost.find(micropost_params)
+    @micropost = Micropost.find(params[:id])
     @micropost.destroy
-    redirect_to root_url
+    redirect_to :back
   end
 
   private
